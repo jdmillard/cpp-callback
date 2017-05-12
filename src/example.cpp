@@ -5,7 +5,7 @@ Wrapper::Wrapper()
 {
   std::cout << "instantiated wrapper class" << std::endl;
   private_x = 14;
-  memberCore.addHandler(4);
+  memberCore.addHandler(this);
   memberCore.Process();
 }
 
@@ -23,7 +23,9 @@ void Wrapper::Callback(int x)
 {
   // do something special
   private_x = pow(x,2);
-  std::cout << "service call" << std::endl;
+  std::cout << std::endl << "perform service call" << std::endl;
+  PrintVar();
+  std::cout << std::endl;
 }
 // think of Callback as any other standard function
 // but this is the higher level
@@ -45,15 +47,22 @@ void Core::Process()
     // and the callback function is called
     std::cout << xyz << std::endl;
     xyz++;
+    // if (xyz==5)
+    // {
+    //   owner_saved->Callback(10)
+    // }
   }
   std::cout << "ending core processing" << std::endl;
 
 }
 
 
-void Core::addHandler(int in_val)
-{
-  std::cout << "handler added inside core" << std::endl;
-  //std::cout << in_val << std::endl;
-}
+// void Core::addHandler(T* owner)
+// {
+//
+//   std::cout << "handler added inside core" << std::endl;
+//   //std::cout << in_val << std::endl;
+//   // pretend the event just occured
+//   owner->Callback(555555);
+// }
 

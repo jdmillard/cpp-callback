@@ -1,19 +1,29 @@
 # include <iostream>
-//# include <functional>
 # include <math.h>
 
 
 class Core
 {
 public:
-  void addHandler(int in_val);
+
+  void* owner_saved;
+
+  template<typename T>
+  void addHandler(T* owner)
+  {
+    std::cout << "handler added inside core" << std::endl;
+    std::cout << owner << std::endl;
+    //std::cout << in_val << std::endl;
+    // pretend the event just occured
+    owner_saved = owner;
+    owner->Callback(5);
+  }
+
+
+
+
   void Process();
-  // void addHandler(std::function<void(int)> callback)
-  // {
-  //   cout << "Handler added..." << endl;
-  //   // Let's pretend an event just occured
-  //   callback(1);
-  // }
+
 };
 
 
