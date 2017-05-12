@@ -1,11 +1,14 @@
-# include <example.h>
+# include "example.h"
 
 
 Wrapper::Wrapper()
 {
   std::cout << "instantiated wrapper class" << std::endl;
   private_x = 14;
-  memberCore.addHandler(this);
+
+  // create the method pointer to the callback method
+  methodPtr function_pointer_to_pass_in = &Wrapper::Callback;
+  memberCore.addHandler(this, function_pointer_to_pass_in);
   memberCore.Process();
 }
 
@@ -47,10 +50,9 @@ void Core::Process()
     // and the callback function is called
     std::cout << xyz << std::endl;
     xyz++;
-    // if (xyz==5)
-    // {
-    //   owner_saved->Callback(10)
-    // }
+    if (xyz==5)
+      (saved_owner->*saved_callback_method)(13);
+
   }
   std::cout << "ending core processing" << std::endl;
 

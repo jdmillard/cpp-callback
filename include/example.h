@@ -1,25 +1,37 @@
 # include <iostream>
 # include <math.h>
 
+// delcare the Wrapper class for use in typedef and saved owner pointers
+class Wrapper;
+
+// syntax for defining function pointer type:
+//typedef void (*functionPtr)(int);
+// functionPtr(14); // using the function pointer
+
+// define the method pointer
+typedef void (Wrapper::*methodPtr)(int);
 
 class Core
 {
 public:
 
-  void* owner_saved;
 
-  template<typename T>
-  void addHandler(T* owner)
+  // saved callback method pointer
+  methodPtr saved_callback_method;
+
+  // saved pointer to the master Wrapper class
+  Wrapper* saved_owner;
+
+  void addHandler(Wrapper* owner, methodPtr passed_in_function_pointer)
   {
-    std::cout << "handler added inside core" << std::endl;
-    std::cout << owner << std::endl;
-    //std::cout << in_val << std::endl;
+    saved_owner = owner;
+    saved_callback_method = passed_in_function_pointer;
+
     // pretend the event just occured
-    owner_saved = owner;
-    owner->Callback(5);
+    (saved_owner->*saved_callback_method)(13);
+
+    std::cout << "handler added inside core" << std::endl;
   }
-
-
 
 
   void Process();
