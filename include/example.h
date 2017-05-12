@@ -1,20 +1,28 @@
 # include <iostream>
+//# include <functional>
+# include <math.h>
 
 
-class Large
+class Wrapper
 {
 public:
-    Large();
-    void SetVar(int x);
-    void PrintVar();
+  Wrapper();
+  void SetVar(int x);
+  void PrintVar();
+  void Callback(int x);
 private:
-    int private_x;
+  int private_x;
 };
 
 
-class EventHandler
+class Core
 {
 public:
-    void addHandler(int in_val);
-
+  void addHandler(int in_val);
+  // void addHandler(std::function<void(int)> callback)
+  // {
+  //   cout << "Handler added..." << endl;
+  //   // Let's pretend an event just occured
+  //   callback(1);
+  // }
 };
