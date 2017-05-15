@@ -36,10 +36,8 @@ void WrapperClass::callback(int x)
 
   std::cout << std::endl << "callback has been called" << std::endl;
 
-  // update the special value
-  x_val_ = pow(x,2);
-
-  // display the updated value
+  // update the special value and display
+  set_var(pow(x,2));
   print_var();
   std::cout << std::endl;
 }
@@ -52,10 +50,10 @@ void MemberClass::add_handler(WrapperClass* owner, methodPtr method)
   saved_method_ = method;
 
   // display status
-  std::cout << "handler added inside core; testing callback" << std::endl;
+  std::cout << "handler added inside core" << std::endl;
 
   // pretend the event just occurred, provide an arbitrary input of 15
-  (saved_owner_->*saved_method_)(15);
+  //(saved_owner_->*saved_method_)(15);
 }
 
 void MemberClass::process_stuff()
