@@ -7,30 +7,30 @@ WrapperClass::WrapperClass()
   private_x = 14;
 
   // create the method pointer to the callback method
-  methodPtr function_pointer_to_pass_in = &WrapperClass::Callback;
-  memberCore.addHandler(this, function_pointer_to_pass_in);
-  memberCore.Process();
+  methodPtr function_pointer_to_pass_in = &WrapperClass::callback;
+  core_.add_handler(this, function_pointer_to_pass_in);
+  core_.process_stuff();
 }
 
-void WrapperClass::SetVar(int x)
+void WrapperClass::set_var(int x)
 {
   private_x = x;
 }
 
-void WrapperClass::PrintVar()
+void WrapperClass::print_var()
 {
   std::cout << private_x << std::endl;
 }
 
-void WrapperClass::Callback(int x)
+void WrapperClass::callback(int x)
 {
   // do something special
   private_x = pow(x,2);
   std::cout << std::endl << "perform service call" << std::endl;
-  PrintVar();
+  print_var();
   std::cout << std::endl;
 }
-// think of Callback as any other standard function
+// think of callback as any other standard function
 // but this is the higher level
 // when something happens in the "MemberClass" class operations,
 // it will be signaled to run
@@ -39,7 +39,7 @@ void WrapperClass::Callback(int x)
 
 
 
-void MemberClass::Process()
+void MemberClass::process_stuff()
 {
   // lots of processing
   std::cout << "beginning core processing" << std::endl;
@@ -51,7 +51,7 @@ void MemberClass::Process()
     std::cout << xyz << std::endl;
     xyz++;
     if (xyz==5)
-      (saved_owner->*saved_callback_method)(13);
+      (saved_owner_->*saved_method_)(13);
 
   }
   std::cout << "ending core processing" << std::endl;

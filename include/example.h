@@ -1,11 +1,13 @@
 # include <iostream>
 # include <math.h>
 
-// delcare the WrapperClass class for use in typedef and saved owner pointers
+// delcare WrapperClass early
+// this is needed for use in typedef and saved owner pointers
 class WrapperClass;
 
 // syntax for defining function pointer type:
-//typedef void (*functionPtr)(int);
+// typedef void (*functionPtr)(int);
+// functionPtr would be the type. using it requires passing int with no return
 // functionPtr(14); // using the function pointer
 
 // define the method pointer
@@ -15,27 +17,24 @@ class MemberClass
 {
 public:
 
+  // saved callback method pointer for use elsewhere
+  // saved WrapperClass instantiation pointer
+  methodPtr     saved_method_;
+  WrapperClass* saved_owner_;
 
-  // saved callback method pointer
-  methodPtr saved_callback_method;
-
-  // saved pointer to the master WrapperClass class
-  WrapperClass* saved_owner;
-
-  void addHandler(WrapperClass* owner, methodPtr passed_in_function_pointer)
+  void process_stuff();
+  void add_handler(WrapperClass* owner, methodPtr method)
   {
-    saved_owner = owner;
-    saved_callback_method = passed_in_function_pointer;
+    // update the saved pointers
+    saved_owner_  = owner;
+    saved_method_ = method;
+
+    // display success
+    std::cout << "handler added inside core" << std::endl;
 
     // pretend the event just occured
-    (saved_owner->*saved_callback_method)(13);
-
-    std::cout << "handler added inside core" << std::endl;
+    (saved_owner_->*saved_method_)(15);
   }
-
-
-  void Process();
-
 };
 
 
@@ -43,10 +42,10 @@ class WrapperClass
 {
 public:
   WrapperClass();
-  void SetVar(int x);
-  void PrintVar();
-  void Callback(int x);
-  MemberClass memberCore;
+  void set_var(int x);
+  void print_var();
+  void callback(int x);
+  MemberClass core_;
 private:
   int private_x;
 };
