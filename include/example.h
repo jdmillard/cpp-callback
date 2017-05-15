@@ -1,17 +1,17 @@
 # include <iostream>
 # include <math.h>
 
-// delcare the Wrapper class for use in typedef and saved owner pointers
-class Wrapper;
+// delcare the WrapperClass class for use in typedef and saved owner pointers
+class WrapperClass;
 
 // syntax for defining function pointer type:
 //typedef void (*functionPtr)(int);
 // functionPtr(14); // using the function pointer
 
 // define the method pointer
-typedef void (Wrapper::*methodPtr)(int);
+typedef void (WrapperClass::*methodPtr)(int);
 
-class Core
+class MemberClass
 {
 public:
 
@@ -19,10 +19,10 @@ public:
   // saved callback method pointer
   methodPtr saved_callback_method;
 
-  // saved pointer to the master Wrapper class
-  Wrapper* saved_owner;
+  // saved pointer to the master WrapperClass class
+  WrapperClass* saved_owner;
 
-  void addHandler(Wrapper* owner, methodPtr passed_in_function_pointer)
+  void addHandler(WrapperClass* owner, methodPtr passed_in_function_pointer)
   {
     saved_owner = owner;
     saved_callback_method = passed_in_function_pointer;
@@ -39,14 +39,14 @@ public:
 };
 
 
-class Wrapper
+class WrapperClass
 {
 public:
-  Wrapper();
+  WrapperClass();
   void SetVar(int x);
   void PrintVar();
   void Callback(int x);
-  Core memberCore;
+  MemberClass memberCore;
 private:
   int private_x;
 };

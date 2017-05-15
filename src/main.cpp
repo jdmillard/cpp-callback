@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
 
-  Wrapper object1;
+  WrapperClass object1;
   //object1.PrintVar();
   //object1.SetVar(3);
   //object1.PrintVar();
